@@ -28,7 +28,7 @@ export default {
     },
   },
   computed: mapState({
-    userinfo: state => state.login.userinfo,
+    userinfo: state => state.userinfo,
   }),
 };
 </script>

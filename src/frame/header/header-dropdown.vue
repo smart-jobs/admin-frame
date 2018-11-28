@@ -2,7 +2,7 @@
   <div class="header-box">
       <div class="logo" :style="{width: logoWidth}">
         <router-link to="/">
-          <img src="~/assets/logo1.svg" alt="logo" style="height:32px;width:32px;" />
+          <img src="@/assets/logo1.svg" alt="logo" style="height:32px;width:32px;" />
         </router-link>
         <h1>{{shortName}}</h1>
       </div>
@@ -72,7 +72,7 @@ export default {
     },
   },
   computed: mapState({
-    userinfo: state => state.login.userinfo,
+    userinfo: state => state.userinfo,
   }),
 };
 </script>

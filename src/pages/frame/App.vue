@@ -1,42 +1,34 @@
 <template>
-  <div id="app">
+  <footer-layout id="app">
     <div class="weui-loadmore" v-if="loading">
       <i class="weui-loading"></i>
       <span class="weui-loadmore__tips">正在加载</span>
     </div>
     <router-view v-else/>
-  </div>
+  </footer-layout>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import FooterLayout from '@/layouts/footer';
 
 export default {
   name: 'App',
+  components: {
+    FooterLayout,
+  },
   metaInfo: {
     title: '智慧就业',
-    titleTemplate: '智慧就业 - %s',
   },
   async mounted() {
-    const res = await this.load();
-    this.$checkRes(res, () => {});
-  },
-  computed: {
-    ...mapState(['loading']),
+    console.log('call load');
+    await this.load();
   },
   methods: {
     ...mapActions(['load']),
   },
+  computed: {
+    ...mapState(['loading']),
+  },
 };
 </script>
-
-<style lang="less">
-@import '~@/style/common.less';
-</style>
-<style scoped>
-.weui-loadmore {
-  position: absolute;
-  top: 40%;
-  width: 100%;
-}
-</style>

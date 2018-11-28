@@ -2,7 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 
 /* 字段定义 */
-export const FieldMeta = (meta) => {
+export const FieldMeta = meta => {
   let { field, slots, listOpts } = meta;
   const { rules, formOpts, order = 0 } = meta;
   if (field === undefined) {
@@ -23,7 +23,7 @@ export const FieldMeta = (meta) => {
     const { filter = false, list = true, form = true } = slots;
     slots = { filter, list, form };
   } else if (_.isArray(slots)) {
-    slots = { filter: slots.includes('filter'), filter: slots.includes('list'), form: slots.includes('form') }
+    slots = { filter: slots.includes('filter'), list: slots.includes('list'), form: slots.includes('form') };
   }
 
   // 处理formatter
@@ -47,44 +47,44 @@ export const FieldMeta = (meta) => {
   }
 
   return { field, rules, slots, order, formOpts, listOpts, formatter };
-}
+};
 
 /* 列表操作列定义 */
-export const Operation = (meta) => {
+export const Operation = meta => {
   let items = Object.entries(meta);
   if (_.isArray(meta)) {
     items = Object.values(meta);
   }
   return items.map(item => {
     if (_.isArray(item)) {
-      let [event, label, icon, confirm = false ] = item;
-      if(_.isBoolean(icon)){
+      let [event, label, icon, confirm = false] = item;
+      if (_.isBoolean(icon)) {
         confirm = icon;
         icon = undefined;
-      } 
+      }
       return { event, label, icon, confirm };
     }
     return item;
   });
-}
+};
 
 // 预置formatter函数
 const formatters = {
-  date: (param) => (row, column, cellValue, index) => {
+  date: param => (row, column, cellValue, index) => {
     if (cellValue) {
-      return moment(cellValue).format(param||'YYYY-MM-DD');
+      return moment(cellValue).format(param || 'YYYY-MM-DD');
     }
     return cellValue;
   },
-  dict: (param) => {
-    return function (row, column, cellValue, index) {
+  dict: param => {
+    return function(row, column, cellValue, index) {
       if (_.isString(cellValue)) {
-        return this.$dict(param, cellValue)
+        return this.$dict(param, cellValue);
       }
       return cellValue;
-    }
+    };
   },
-}
+};
 
 export const Formatter = (meta, _this) => {
   // 处理formatter
@@ -101,22 +101,22 @@ export const Formatter = (meta, _this) => {
   }
 
   return formatter;
-}
+};
 
 export const MergeFilters = (meta, _this) => {
   // 生成column filters
   let { formatter, listOpts } = meta;
   if (listOpts && listOpts.filterable && _.isObject(formatter) && formatter.name === 'dict') {
     let items = _this.$dict(formatter.param);
-    if(!items || items.length > 20) return undefined;
+    if (!items || items.length > 20) return undefined;
 
     const filterMethod = (value, row, column) => {
       const property = column['property'];
       return row[property] === value;
-    }
+    };
 
-    const filters = items.map(p=>({text: p.name, value: p.code}));
+    const filters = items.map(p => ({ text: p.name, value: p.code }));
     return { filters, filterMethod, ...listOpts };
   }
   return listOpts;
-}
+};

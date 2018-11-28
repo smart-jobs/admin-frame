@@ -1,4 +1,5 @@
 const path = require('path');
+const menu = require('./mock/menu');
 
 const frameSrc = path.resolve(__dirname);
 
@@ -34,9 +35,9 @@ module.exports = {
       disableDotRule: true,
       rewrites: [
         { from: /^\/$/, to: path.posix.join(baseUrl, 'loading.html') },
-        { from: /^\/login/, to: path.posix.join(baseUrl, 'login.html') },
-        { from: /^\/frame/, to: path.posix.join(baseUrl, 'frame.html') },
-        { from: /./, to: path.posix.join(baseUrl, 'login.html') },
+        { from: /\/login/, to: path.posix.join(baseUrl, 'login.html') },
+        { from: /\/frame/, to: path.posix.join(baseUrl, 'frame.html') },
+        { from: /./, to: path.posix.join(baseUrl, '404.html') },
       ],
     },
     before(app) {
@@ -44,6 +45,7 @@ module.exports = {
         console.log(`[${req.method}]`, req.path);
         next();
       });
+      app.use('/api', menu);
     },
     proxy: {
       '/platform/api': {
@@ -52,6 +54,7 @@ module.exports = {
       },
       '/ws': {
         target: 'http://99991.smart.chinahuian.cn',
+        ws: true,
       },
     },
   },

@@ -1,13 +1,17 @@
 <!--登录页面布局，只有footer-->
 <template>
-  <div style="height:100%;overflow:auto;">
-    <transition name="form-fade" mode="in-out">
-      <slot></slot>
-    </transition>
+  <el-container class="layout" direction="vertical">
+    <el-main style="padding: 0;display: flex;">
+      <transition name="form-fade" mode="in-out">
+        <slot></slot>
+      </transition>
+    </el-main>
     <el-footer class="footer" height="layout.footerHeight">
-      <naf-footer></naf-footer>
+      <slot name="footer">
+        <naf-footer></naf-footer>
+      </slot>
     </el-footer>
-  </div>
+  </el-container>
 </template>
 <script>
 import NafFooter from '@/frame/footer';
@@ -26,20 +30,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less" scoped>
-@import '~@/style/theme';
-
-.footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  text-align: center;
-  height: 48px;
-}
-
-.copyright {
-  color: @text-color-secondary;
-  font-size: @font-size-base;
-}
-</style>

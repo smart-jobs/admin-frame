@@ -1,6 +1,6 @@
 <template>
   <el-menu ref="menu" default-active="0" class="nav-menu" v-bind="themeStyles"
-     :collapse="isCollapse" :router="false">
+     :collapse="isCollapse" :router="false" :default-openeds="['0']">
     <naf-menu-item v-for="(item,idx) in menuItems" :key="idx" :index="idx.toString()" :title="item.title"
       :options="item.options" :children="item.children" :target="item.target">
     </naf-menu-item>
@@ -24,13 +24,13 @@ export default {
       // menus,
     };
   },
-  mounted: function() {
-    this.$nextTick(_ => {
-      // Code that will run only after the
-      // entire view has been rendered
-      this.$refs.menu.open('0');
-    });
-  },
+  // mounted: function() {
+  //   this.$nextTick(_ => {
+  //     // Code that will run only after the
+  //     // entire view has been rendered
+  //     this.$refs.menu.open('0');
+  //   });
+  // },
   computed: {
     // 计算属性的 getter
     themeStyles() {

@@ -8,6 +8,8 @@ import '@lib/plugins/mint-ui';
 import '@lib/plugins/axios';
 import '@lib/plugins/check-res';
 import InitStomp from '@lib/plugins/stomp';
+import '@/style/index.less';
+import '@/style/common.less';
 
 Vue.config.productionTip = false;
 Vue.config.weixin = {
