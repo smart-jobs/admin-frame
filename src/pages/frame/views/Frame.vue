@@ -16,8 +16,15 @@
             <naf-bread></naf-bread>
           </div>
           <div class="page">
-            <router-view v-if="$route.path == '/'"/>
-            <iframe v-else width="100%" height="100%" frameborder="0"></iframe>
+            <el-scrollbar>
+              <router-view v-if="$route.path == '/'" />
+              <iframe ref="iframe" :src="routerPath" scrolling="no" frameborder="0" @load="pageLoaded" @waiting="loading=true" v-else>
+              </iframe>
+              <div class="weui-loadmore" v-show="loading">
+                <i class="weui-loading"></i>
+                <span class="weui-loadmore__tips">正在加载</span>
+              </div>
+            </el-scrollbar>
           </div>
         </el-main>
       </el-container>
@@ -57,13 +64,24 @@ export default {
     return {
       name: config.shortName,
       layout: { ...defaultConfig, ...layout },
+      loading: false,
     };
   },
+  // watch: {
+  //   // call again the method if the route changes
+  //   routerPath: 'handleLoad',
+  // },
   methods: {
     ...mapMutations({
       toggleMenu: types.NAV_TOGGLE_COLLAPSE,
     }),
     ...mapActions(['switchMode']),
+    pageLoaded() {
+      this.loading = false;
+      const iframe = this.$refs.iframe;
+      iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
+      iframe.width = iframe.contentWindow.document.documentElement.scrollWidth;
+    },
   },
   computed: {
     ...mapState({
@@ -85,8 +103,7 @@ export default {
     },
     routerPath() {
       const { module = '', path = '/' } = this.$route.params;
-      const { base } = this.$router.options;
-      return urljoin(base, module, path);
+      return urljoin(process.env.VUE_APP_ROOT_URL, module, `#/${path}`);
     },
   },
   errorCaptured(err, vm, info) {

@@ -1,6 +1,7 @@
 import * as types from './mutation-types';
 import Cookies from 'js-cookie';
 import Jwt from 'jsonwebtoken';
+import util from '@lib/utils/user-util';
 
 const api = {
   login: '/naf/login',
@@ -83,9 +84,10 @@ export const mutations = {
     state.isAuthenticated = true;
     // state.userinfo = userinfo;
     state.access_token = token;
-    const jwt = Jwt.decode(token);
-    state.userinfo = jwt.payload;
-    Cookies.set('auth', token);
+    const userinfo = Jwt.decode(token);
+    state.userinfo = userinfo;
+    Cookies.set('token', token);
+    util.save({ userinfo, token });
   },
   [types.LOGIN_FAILURE](state) {
     state.isAuthenticated = false;
@@ -93,7 +95,7 @@ export const mutations = {
   [types.LOGOUT_SUCCESS](state) {
     state.isAuthenticated = false;
     state.userinfo = null;
-    Cookies.remove('auth');
+    Cookies.remove('token');
   },
   [types.USER_INFO](state, payload) {
     state.userinfo = payload;

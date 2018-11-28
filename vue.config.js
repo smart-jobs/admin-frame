@@ -7,7 +7,7 @@ const baseUrl = '/admin';
 
 module.exports = {
   // baseUrl: './',
-  baseUrl: baseUrl,
+  baseUrl: process.env.VUE_APP_ROOT_URL,
 
   pages: {
     login: 'src/pages/login/main.js',
@@ -30,7 +30,7 @@ module.exports = {
   },
 
   devServer: {
-    port: 3100,
+    port: 3000,
     historyApiFallback: {
       disableDotRule: true,
       rewrites: [
@@ -49,12 +49,20 @@ module.exports = {
     },
     proxy: {
       '/platform/api': {
-        // target: 'http://localhost:9000',
         target: 'http://99991.smart.chinahuian.cn',
       },
       '/ws': {
         target: 'http://99991.smart.chinahuian.cn',
         ws: true,
+      },
+      '/admin/system': {
+        target: 'http://localhost:3001',
+      },
+      '/admin/jobs': {
+        target: 'http://localhost:3002',
+      },
+      '/admin/docflow': {
+        target: 'http://localhost:3003',
       },
     },
   },

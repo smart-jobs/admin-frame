@@ -7,6 +7,7 @@ import '@lib/plugins/element';
 import '@lib/plugins/mint-ui';
 import '@lib/plugins/axios';
 import '@lib/plugins/check-res';
+import '@lib/plugins/naf-dict';
 import '@/style/index.less';
 import '@/style/common.less';
 
