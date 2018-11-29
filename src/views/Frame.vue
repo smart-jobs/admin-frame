@@ -17,7 +17,7 @@
           </div>
           <div class="page">
             <el-scrollbar>
-              <router-view v-if="$route.path == '/'" />
+              <router-view v-if="!$route.params.module" />
               <iframe ref="iframe" :src="routerPath" scrolling="no" frameborder="0" @load="pageLoaded" @waiting="loading=true" v-else>
               </iframe>
               <div class="weui-loadmore" v-show="loading">

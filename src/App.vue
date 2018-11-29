@@ -1,15 +1,15 @@
 <template>
   <footer-layout id="app">
-    <!-- <div class="weui-loadmore" v-if="loading">
+    <div class="weui-loadmore" v-if="loading">
       <i class="weui-loading"></i>
       <span class="weui-loadmore__tips">正在加载</span>
-    </div> -->
-    <router-view/>
+    </div>
+    <router-view v-else/>
   </footer-layout>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import FooterLayout from '@/layouts/footer';
 
 export default {
@@ -20,15 +20,14 @@ export default {
   metaInfo: {
     title: '智慧就业',
   },
-  async mounted() {
-    console.log('call load');
-    await this.load();
+  computed: {
+    ...mapState(['loading']),
   },
   methods: {
     ...mapActions(['load']),
   },
-  computed: {
-    ...mapState(['loading']),
+  async created() {
+    await this.load();
   },
 };
 </script>

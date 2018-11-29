@@ -9,6 +9,10 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/',
+      redirect: '/frame',
+    },
+    {
       path: '/login',
       component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
     },
@@ -17,14 +21,14 @@ const router = new Router({
       component: () => import(/* webpackChunkName: "frame" */ './views/Frame.vue'),
       children: [
         {
-          path: '',
+          path: '/frame',
           component: Home,
         },
         {
-          path: ':module/:path(.*)',
+          path: '/frame/:module/:path(.*)',
         },
         {
-          path: ':module',
+          path: '/frame/:module',
         },
       ],
     },
@@ -32,11 +36,13 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  // const { isAuthenticated } = router.$store.getters;
-  // if (!isAuthenticated) {
-  //   next('/login');
-  //   return;
-  // }
+  const { isAuthenticated } = router.$store.getters;
+  if (!isAuthenticated && '/login' != to.path) {
+    console.warn('not login, redirect login page...');
+    next('/login');
+    return;
+  }
+  console.log('to: ', to);
   router.$store.commit('naf/menu/NAV_MODULE_SELECTED', to.params.module);
   next();
 });

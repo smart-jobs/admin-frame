@@ -10,10 +10,10 @@ const api = {
 
 export const state = () => ({
   loading: false,
-  isAuthenticated: false,
-  userinfo: null,
+  isAuthenticated: util.user && util.user.role !== 'guest',
+  userinfo: util.user,
   unit: null,
-  access_token: null,
+  access_token: util.token,
   qrcode: null,
 });
 
@@ -88,6 +88,8 @@ export const mutations = {
     state.userinfo = userinfo;
     Cookies.set('token', token);
     util.save({ userinfo, token });
+    // TODO: 重定向到框架界面
+    this.$router.push('/frame');
   },
   [types.LOGIN_FAILURE](state) {
     state.isAuthenticated = false;

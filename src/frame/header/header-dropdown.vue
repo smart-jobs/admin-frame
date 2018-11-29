@@ -71,9 +71,11 @@ export default {
       }
     },
   },
-  computed: mapState({
-    userinfo: state => state.userinfo,
-  }),
+  computed: {
+    userinfo() {
+      return this.$store.getters.userinfo;
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
