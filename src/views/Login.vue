@@ -43,7 +43,9 @@ const { mapState, mapActions } = createNamespacedHelpers('login');
 // import {login, getAdminInfo} from '@/api/getData'
 // import {mapActions, mapState} from 'vuex'
 export default {
-  layout: 'footer',
+  metaInfo: {
+    title: '登录',
+  },
   data() {
     return {
       loginForm: {

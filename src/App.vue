@@ -1,10 +1,10 @@
 <template>
   <footer-layout id="app">
-    <div class="weui-loadmore" v-if="loading">
+    <!-- <div class="weui-loadmore" v-if="loading">
       <i class="weui-loading"></i>
       <span class="weui-loadmore__tips">正在加载</span>
-    </div>
-    <router-view v-else/>
+    </div> -->
+    <router-view/>
   </footer-layout>
 </template>
 

@@ -1,7 +1,5 @@
-
 // mutation types
 export const NAV_MENU_LOADED = 'NAV_MENU_LOADED';
 export const NAV_MODULE_SELECTED = 'NAV_MODULE_SELECTED';
 export const NAV_SWITCH_MODE = 'NAV_SWITCH_MODE';
 export const NAV_TOGGLE_COLLAPSE = 'NAV_TOGGLE_COLLAPSE';
-

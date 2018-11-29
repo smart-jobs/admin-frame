@@ -7,12 +7,7 @@ const baseUrl = '/admin';
 
 module.exports = {
   // baseUrl: './',
-  baseUrl: process.env.VUE_APP_ROOT_URL,
-
-  pages: {
-    login: 'src/pages/login/main.js',
-    frame: 'src/pages/frame/main.js',
-  },
+  baseUrl: baseUrl, // : process.env.VUE_APP_ROOT_URL,
 
   configureWebpack: {
     externals: {
@@ -31,15 +26,15 @@ module.exports = {
 
   devServer: {
     port: 3000,
-    historyApiFallback: {
-      disableDotRule: true,
-      rewrites: [
-        { from: /^\/$/, to: path.posix.join(baseUrl, 'loading.html') },
-        { from: /\/login/, to: path.posix.join(baseUrl, 'login.html') },
-        { from: /\/frame/, to: path.posix.join(baseUrl, 'frame.html') },
-        { from: /./, to: path.posix.join(baseUrl, '404.html') },
-      ],
-    },
+    // historyApiFallback: {
+    //   disableDotRule: true,
+    //   rewrites: [
+    //     { from: /^\/$/, to: path.posix.join(baseUrl, 'loading.html') },
+    //     { from: /\/login/, to: path.posix.join(baseUrl, 'login.html') },
+    //     { from: /\/frame/, to: path.posix.join(baseUrl, 'frame.html') },
+    //     { from: /./, to: path.posix.join(baseUrl, '404.html') },
+    //   ],
+    // },
     before(app) {
       app.use((req, res, next) => {
         console.log(`[${req.method}]`, req.path);

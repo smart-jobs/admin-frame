@@ -30,7 +30,7 @@ export default {
       if (this.options.url) {
         window.open(this.options.url, this.options.target);
       } else if (this.options.path) {
-        this.$router.push(`${this.options.path}`);
+        this.$router.push(`/frame${this.options.path}`);
       }
     },
   },
