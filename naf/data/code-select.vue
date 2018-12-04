@@ -20,7 +20,7 @@ export default {
       selected: this.value,
     };
   },
-  async created() {
+  async mounted() {
     const res = await this.load(this.category);
     if (!res.errcode) {
       this.datas.push(res);
