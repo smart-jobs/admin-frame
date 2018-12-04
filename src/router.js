@@ -15,6 +15,11 @@ const router = new Router({
     {
       path: '/login',
       component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
+      children: [
+        {
+          path: '/:unit/login',
+        },
+      ],
     },
     {
       path: '/frame',
@@ -37,7 +42,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const { isAuthenticated } = router.$store.getters;
-  if (!isAuthenticated && '/login' != to.path) {
+  if (!isAuthenticated && !/\/login$/.test(to.path)) {
     console.warn('not login, redirect login page...');
     next('/login');
     return;

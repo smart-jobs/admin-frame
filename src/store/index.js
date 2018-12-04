@@ -6,6 +6,7 @@ import Vuex from 'vuex';
 
 import * as types from './mutation-types';
 import * as menu from '@/store/naf/menu';
+import * as dict from '@/store/naf/dict';
 import util from '@lib/utils/user-util';
 import * as login from './login';
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
       namespaced: true,
       modules: {
         menu,
+        dict,
       },
     },
     login,
@@ -61,6 +63,7 @@ export default new Vuex.Store({
       console.log('start loading data...');
       commit(types.SHOW_LOADING);
       await dispatch('naf/menu/load');
+      await dispatch('naf/dict/load', 'unit');
       commit(types.HIDE_LOADING);
       console.log('load data ok！');
     },

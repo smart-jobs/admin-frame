@@ -11,7 +11,13 @@
       <el-form :model="loginForm" :rules="rules" ref="loginForm">
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" placeholder="用户名" prefix-icon="naf-icons naf-icon-user">
-            <span>dsfsf</span>
+            <template slot="append" v-if="unit != 'master'">@
+              <!-- <router-view /> -->
+              <el-tooltip class="item" effect="dark" :content="unit">
+                <code-select category="unit" :value="unit" placeholder="所在单位" :disabled="unit != undefined">
+                </code-select>
+              </el-tooltip>
+            </template>
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
@@ -35,6 +41,7 @@ import { createNamespacedHelpers } from 'vuex';
 import config from '@frame/config';
 import QRCode from 'qrcode';
 import { Client } from '@stomp/stompjs/esm5/client';
+import CodeSelect from '@naf/data/code-select';
 
 const { productName, description } = config;
 
@@ -43,6 +50,9 @@ const { mapState, mapActions } = createNamespacedHelpers('login');
 // import {login, getAdminInfo} from '@/api/getData'
 // import {mapActions, mapState} from 'vuex'
 export default {
+  components: {
+    CodeSelect,
+  },
   metaInfo: {
     title: '登录',
   },
@@ -60,12 +70,11 @@ export default {
       description,
       dataUrl: null,
       client: null,
+      unit: 'master',
     };
   },
   async mounted() {
-    // if (!this.adminInfo.id) {
-    // this.getAdminData()
-    // }
+    this.unit = this.$route.params.unit;
     await this.initQrcode();
   },
   computed: {
@@ -84,19 +93,8 @@ export default {
             password: this.loginForm.password,
           });
           // console.log(res);
-          if (res.errcode === 0) {
-            this.$message({
-              type: 'success',
-              message: '登录成功',
-              duration: 1000,
-            });
+          if (this.$checkRes(res, '登录成功', '登录失败')) {
             this.$router.push(this.$route.query.redirect || '/');
-          } else {
-            this.$message({
-              type: 'error',
-              message: res.errmsg || '登录失败',
-              duration: 1000,
-            });
           }
         } else {
           this.$notify.error({
@@ -160,10 +158,10 @@ export default {
   position: relative;
 }
 .main {
-  width: 440px;
+  width: 460px;
   margin: 0 auto;
   .el-form {
-    width: 260px;
+    width: 280px;
     float: left;
   }
   .qrcode {
@@ -178,6 +176,15 @@ export default {
       width: 140px;
       height: 140px;
     }
+  }
+  .el-select {
+    width: 140px;
+    /deep/ .el-input__inner {
+      padding-left: 16px;
+    }
+  }
+  /deep/ .el-input-group__append {
+    padding-left: 5px;
   }
 }
 .top {

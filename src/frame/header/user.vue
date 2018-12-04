@@ -22,7 +22,7 @@ export default {
       console.log(this);
       const res = await this.logout();
       // console.log(res);
-      if (res.errcode === 0) {
+      if (!res.errcode) {
         this.$router.push(this.$route.query.redirect || '/login');
       }
     },

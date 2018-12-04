@@ -16,10 +16,10 @@ export const actions = {
   async load({ commit }) {
     try {
       let res = await this.$axios.$get('/menu/load');
-      if (res.errcode === 0) {
-        commit(types.NAV_MENU_LOADED, res.data);
+      if (res.errcode) {
+        return res;
       }
-      return res;
+      commit(types.NAV_MENU_LOADED, res.data || res);
     } catch (err) {
       console.error(err);
       return { errcode: -1, errmsg: err.message || '处理失败' };
