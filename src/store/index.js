@@ -6,7 +6,7 @@ import Vuex from 'vuex';
 
 import * as types from './mutation-types';
 import * as menu from '@/store/naf/menu';
-import * as dict from '@/store/naf/dict';
+import * as dict from '@lib/store/naf/dict';
 import util from '@lib/utils/user-util';
 import * as login from './login';
 
