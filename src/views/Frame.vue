@@ -15,10 +15,11 @@
           <div class="bread" :height="layout.breadHeight">
             <naf-bread></naf-bread>
           </div>
-          <div class="page">
+          <div class="page" ref="pageContainer">
             <el-scrollbar>
               <router-view v-if="!$route.params.module" />
-              <iframe ref="iframe" :src="routerPath" scrolling="no" frameborder="0" @load="pageLoaded" @waiting="loading=true" v-else>
+              <iframe id="frame" ref="iframe" :src="routerPath" scrolling="no" frameborder="0" @load="pageLoaded"
+                      @hashchange="pageLoaded" @waiting="loading=true" v-else v-show="!loading">
               </iframe>
               <div class="weui-loadmore" v-show="loading">
                 <i class="weui-loading"></i>
@@ -34,6 +35,7 @@
 
 <script>
 import urljoin from 'url-join';
+import Vue from 'vue';
 import { createNamespacedHelpers } from 'vuex';
 import config from '@frame/config';
 import NafHeader from '@/frame/header';
@@ -76,11 +78,16 @@ export default {
       toggleMenu: types.NAV_TOGGLE_COLLAPSE,
     }),
     ...mapActions(['switchMode']),
-    pageLoaded() {
+    pageLoaded(event) {
+      console.log('pageLoaded:', event);
       this.loading = false;
       const iframe = this.$refs.iframe;
-      iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
-      iframe.width = iframe.contentWindow.document.documentElement.scrollWidth;
+      const page = this.$refs.pageContainer;
+      iframe.contentWindow.addEventListener('hashchange', this.pageLoaded);
+      setTimeout(_ => {
+        iframe.height = Math.max(iframe.contentWindow.document.documentElement.scrollHeight, page.scrollHeight);
+        iframe.width = iframe.contentWindow.document.documentElement.scrollWidth;
+      }, 1000);
     },
   },
   computed: {
@@ -157,21 +164,23 @@ export default {
       padding: 10px;
     }
     .page {
+      display: flex;
       flex: 1;
+      padding: 0;
     }
 
     .el-scrollbar {
       height: 100%;
-      widows: 100%;
+      width: 100%;
       /deep/ .el-scrollbar__wrap {
         overflow-x: hidden;
-        display: flex;
+        // display: flex;
       }
       /deep/ .el-scrollbar__view {
         padding: 10px;
-        display: flex;
-        flex: 1;
-        flex-direction: column;
+        // display: flex;
+        // flex: 1;
+        // flex-direction: column;
         // overflow: auto;
       }
     }

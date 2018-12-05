@@ -40,14 +40,14 @@ module.exports = {
         console.log(`[${req.method}]`, req.path);
         next();
       });
-      app.use('/api', menu);
+      app.use('/platform/api', menu);
     },
     proxy: {
       '/platform/api': {
-        target: 'http://99991.smart.chinahuian.cn',
+        target: 'http://smart.chinahuian.cn',
       },
       '/ws': {
-        target: 'http://99991.smart.chinahuian.cn',
+        target: 'http://smart.chinahuian.cn',
         ws: true,
       },
       '/admin/system': {

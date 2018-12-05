@@ -13,8 +13,8 @@
           <el-input v-model="loginForm.username" placeholder="用户名" prefix-icon="naf-icons naf-icon-user">
             <template slot="append" v-if="unit != 'master'">@
               <!-- <router-view /> -->
-              <el-tooltip class="item" effect="dark" :content="unit">
-                <code-select category="unit" :value="unit" placeholder="所在单位" :disabled="unit != undefined">
+              <el-tooltip class="item" effect="dark" :content="unit" :disabled="unit == undefined">
+                <code-select category="unit" v-model="unit" placeholder="所在单位" :disabled="$route.params.unit != undefined">
                 </code-select>
               </el-tooltip>
             </template>
@@ -86,14 +86,23 @@ export default {
       createQrcode: 'qrcode',
     }),
     async submitForm(formName) {
+      if (!this.unit) {
+        this.$notify.error({
+          title: '错误',
+          message: '请选择所在单位',
+          offset: 100,
+        });
+        return;
+      }
       this.$refs[formName].validate(async valid => {
         if (valid) {
           const res = await this.login({
             username: this.loginForm.username || 'admin',
             password: this.loginForm.password,
+            unit: this.unit,
           });
           // console.log(res);
-          if (this.$checkRes(res, '登录成功', '登录失败')) {
+          if (this.$checkRes(res, '登录成功')) {
             this.$router.push(this.$route.query.redirect || '/');
           }
         } else {

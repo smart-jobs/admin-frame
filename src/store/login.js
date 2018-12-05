@@ -24,13 +24,13 @@ export const getters = {
 
 // actions
 export const actions = {
-  async login({ commit, dispatch, state }, { qrcode, username, password }) {
+  async login({ commit, dispatch, state }, { qrcode, username, password, unit }) {
     commit(types.SHOW_LOADING);
     try {
-      console.log('login unit: ', state.unit);
+      console.log('login unit: ', unit);
       // console.log(this.$axios);
       //let res = await auth.login({ username, password });
-      let res = await this.$axios.$post(api.login, { qrcode, username, password, unitcode: state.unit });
+      let res = await this.$axios.$post(api.login, { qrcode, username, password }, { _tenant: unit });
       console.log(res);
       if (res.errcode && res.errcode !== 0) {
         commit(types.LOGIN_FAILURE);

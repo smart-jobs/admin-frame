@@ -84,6 +84,21 @@ const datas = [
         path: '/system/tag',
         icon: 'tag',
       },
+      {
+        title: '标签管理',
+        path: '/system/tag',
+        icon: 'tag',
+      },
+      {
+        title: '单位管理',
+        path: '/system/unit',
+        icon: 'corp',
+      },
+      {
+        title: '字典管理',
+        path: '/system/dict',
+        icon: 'dict',
+      },
       // {
       //   title: '操作日志',
       //   path: '/system/log',
