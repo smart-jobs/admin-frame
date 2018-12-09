@@ -14,7 +14,7 @@
   </el-container>
 </template>
 <script>
-import NafFooter from '@/frame/footer';
+import NafFooter from '@naf/frame/footer';
 import config from '@frame/config';
 
 const { layout } = config;

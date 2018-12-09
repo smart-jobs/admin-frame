@@ -18,11 +18,11 @@ const navDatas = [
   //   path: '/cms',
   //   module: 'cms',
   // },
-  // {
-  //   title: '公文系统',
-  //   path: '/docflow',
-  //   module: 'docflow',
-  // },
+  {
+    title: '公文系统',
+    path: '/docflow',
+    module: 'docflow',
+  },
   {
     title: '友情链接',
     module: 'links',
@@ -85,19 +85,16 @@ const datas = [
         icon: 'tag',
       },
       {
-        title: '标签管理',
-        path: '/system/tag',
-        icon: 'tag',
-      },
-      {
         title: '单位管理',
         path: '/system/unit',
         icon: 'corp',
+        platform: 'master',
       },
       {
         title: '字典管理',
         path: '/system/dict',
         icon: 'dict',
+        platform: 'master',
       },
       // {
       //   title: '操作日志',
@@ -238,29 +235,59 @@ const datas = [
       },
     ],
   },
-  // {
-  //   title: '收文管理',
-  //   path: '/docflow',
-  //   icon: 'news',
-  //   module: 'docflow',
-  //   children: [
-  //     {
-  //       title: '待收公文',
-  //       path: '/docflow/news',
-  //       icon: 'caogao',
-  //     },
-  //     {
-  //       title: '在办公文',
-  //       path: '/docflow/inbox',
-  //       icon: 'doc1',
-  //     },
-  //     {
-  //       title: '归档公文',
-  //       path: '/docflow/archive',
-  //       icon: 'column',
-  //     },
-  //   ],
-  // },
+  {
+    title: '发文管理',
+    path: '/docflow',
+    icon: 'news',
+    module: 'docflow',
+    platform: 'master',
+    children: [
+      {
+        title: '我要发文',
+        path: '/docflow/draft',
+        icon: 'caogao',
+      },
+      {
+        title: '在办公文',
+        path: '/docflow/outbox',
+        icon: 'doc1',
+      },
+      {
+        title: '已办公文',
+        path: '/docflow/archive',
+        icon: 'column',
+      },
+      {
+        title: '公文回执',
+        path: '/docflow/feedback',
+        icon: 'column',
+      },
+    ],
+  },
+  {
+    title: '收文管理',
+    path: '/docflow',
+    icon: 'news',
+    module: 'docflow',
+    platform: 'school',
+    children: [
+      {
+        title: '待收公文',
+        path: '/docflow/inbox/new',
+        icon: 'caogao',
+      },
+      {
+        title: '在办公文',
+        path: '/docflow/inbox/work',
+        icon: 'doc1',
+      },
+      {
+        title: '已办公文',
+        path: '/docflow/inbox/done',
+        icon: 'column',
+      },
+    ],
+  },
   {
     title: '友情链接',
     icon: 'menu',
@@ -310,6 +337,9 @@ const MapMenu = (catalog = []) => item => ({
     target: item.target,
     tooltip: item.tooltip,
     module: item.module,
+    platform: item.platform,
+    roles: item.roels,
+    tags: item.tags,
     meta: { catalog: catalog.concat(item.title) },
   },
   children: (item.children || []).map(MapMenu(catalog.concat(item.title))),

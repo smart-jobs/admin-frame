@@ -1,21 +1,21 @@
 <template>
-  <footer-layout id="app">
+  <footer-page id="app">
     <div class="weui-loadmore" v-if="loading">
       <i class="weui-loading"></i>
       <span class="weui-loadmore__tips">正在加载</span>
     </div>
     <router-view v-else/>
-  </footer-layout>
+  </footer-page>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import FooterLayout from '@/layouts/footer';
+import FooterPage from '@naf/layouts/footer-page';
 
 export default {
   name: 'App',
   components: {
-    FooterLayout,
+    FooterPage,
   },
   metaInfo: {
     title: '智慧就业',

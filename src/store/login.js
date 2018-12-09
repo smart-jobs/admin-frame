@@ -12,7 +12,8 @@ export const state = () => ({
   loading: false,
   isAuthenticated: util.user && util.user.role !== 'guest',
   userinfo: util.user,
-  unit: null,
+  lastUnit: util.lastUnit,
+  platform: util.platform,
   access_token: util.token,
   qrcode: null,
 });
@@ -37,6 +38,7 @@ export const actions = {
       } else {
         // await dispatch('fetch', { username });
         commit(types.LOGIN_SUCCESS, res);
+        commit(types.SELECT_UNIT, unit);
       }
       return res;
     } catch (err) {
@@ -83,11 +85,14 @@ export const mutations = {
   [types.LOGIN_SUCCESS](state, { /*userinfo,*/ token }) {
     state.isAuthenticated = true;
     // state.userinfo = userinfo;
-    state.access_token = token;
     const userinfo = Jwt.decode(token);
-    state.userinfo = userinfo;
     Cookies.set('token', token);
     util.save({ userinfo, token });
+    state.userinfo = userinfo;
+    state.access_token = token;
+    state.lastUnit = util.lastUnit;
+    state.platform = util.platform;
+
     // TODO: 重定向到框架界面
     this.$router.push('/frame');
   },
@@ -97,13 +102,20 @@ export const mutations = {
   [types.LOGOUT_SUCCESS](state) {
     state.isAuthenticated = false;
     state.userinfo = null;
+    state.access_token = null;
     Cookies.remove('token');
+    util.save({ userinfo: null, token: null });
+    if (state.platform === 'master') {
+      this.$router.push(`/master/login`);
+    } else {
+      this.$router.push('/login');
+    }
   },
   [types.USER_INFO](state, payload) {
     state.userinfo = payload;
   },
   [types.SELECT_UNIT](state, payload) {
-    state.unit = payload;
+    state.lastUnit = payload;
   },
   [types.QRCODE_SUCCESS](state, payload) {
     state.qrcode = payload;

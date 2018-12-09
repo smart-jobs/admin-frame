@@ -1,13 +1,13 @@
 <template>
   <!--简洁用户菜单-->
   <div class="right lite">
-    <span class="name">{{userinfo && userinfo.fullname || '管理員'}}</span>
-    <span>|</span>
+    <span class="name">{{userinfo && userinfo.name || '管理員'}}</span>
+    <span style="margin: 5px;">|</span>
     <el-button type="text" @click="handleLogout">退出</el-button>
   </div>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -18,19 +18,17 @@ export default {
       logout: 'login/logout',
     }),
     async handleLogout() {
-      console.log(this.userinfo);
-      console.log(this);
+      // console.log(this.userinfo);
+      // console.log(this);
       const res = await this.logout();
       // console.log(res);
-      if (!res.errcode) {
-        this.$router.push(this.$route.query.redirect || '/login');
-      }
+      // if (!res.errcode) {
+      //   this.$router.push(this.$route.query.redirect || '/login');
+      // }
     },
   },
   computed: {
-    userinfo() {
-      return this.$store.getters.userinfo;
-    },
+    ...mapGetters(['userinfo']),
   },
 };
 </script>

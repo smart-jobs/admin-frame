@@ -7,7 +7,7 @@ export const state = () => ({
   items: [],
   modules: [],
   current: null,
-  mode: 'nested', // nested-两层嵌套导航（导航条+导航树）; lite-单一树状导航
+  mode: Cookies.get('navMode') || 'nested', // nested-两层嵌套导航（导航条+导航树）; lite-单一树状导航
   collapse: false,
 });
 

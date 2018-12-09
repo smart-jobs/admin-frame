@@ -30,7 +30,7 @@ export default new Vuex.Store({
     name: null,
   },
   getters: {
-    platform: state => state.platform,
+    platform: state => state.login.platform,
     isAuthenticated: state => state.login.isAuthenticated,
     userinfo: state => state.login.userinfo,
     // access_token: state => state.login.access_token,

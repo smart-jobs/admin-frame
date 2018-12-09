@@ -1,7 +1,7 @@
 export default {
   productName: '智慧就业',
   shortName: '智慧就业',
-  rootName: '校内部门',
+  rootName: '单位部门',
   description: '业务综合管理平台',
   copyright: '吉林省高等学校毕业生就业指导中心 版权所有 © 2018 ',
   layout: {

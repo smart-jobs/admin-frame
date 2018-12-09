@@ -8,7 +8,8 @@
 const DeepFind = (menus, path) => {
   for (const k in menus) {
     const item = menus[k];
-    if (item.options.path == path) return menus[k];
+    //if (item.options.path == path) return menus[k];
+    if (path.endsWith(item.options.path)) return menus[k];
     if (item.children) {
       const res = DeepFind(item.children, path);
       if (res) return res;

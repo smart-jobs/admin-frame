@@ -75,10 +75,13 @@ export default {
   },
   async mounted() {
     this.unit = this.$route.params.unit;
+    if (!this.unit && this.lastUnit != 'master') {
+      this.unit = this.lastUnit;
+    }
     await this.initQrcode();
   },
   computed: {
-    ...mapState(['qrcode']),
+    ...mapState(['qrcode', 'lastUnit']),
   },
   methods: {
     ...mapActions({

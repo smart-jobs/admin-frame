@@ -41,10 +41,14 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const { isAuthenticated } = router.$store.getters;
+  const { isAuthenticated, platform } = router.$store.getters;
   if (!isAuthenticated && !/\/login$/.test(to.path)) {
     console.warn('not login, redirect login page...');
-    next('/login');
+    if (platform === 'master') {
+      next(`/${platform}/login`);
+    } else {
+      next('/login');
+    }
     return;
   }
   console.log('to: ', to);
