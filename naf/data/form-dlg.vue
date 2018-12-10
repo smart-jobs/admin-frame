@@ -2,12 +2,17 @@
   <el-dialog :title="title" :visible.sync="visible" :width="width" :close-on-click-modal="false" @close="$emit('cancel')">
     <el-form ref="form" :model="form" :rules="rules" v-bind="options">
       <slot>
-        <el-form-item v-for="(item,index) in fields" :key="'form-field-'+index" :label="item.field.label" :prop="item.field.name" :required="item.field.required" :rules="item.rules" v-bind="item.formOpts">
+        <el-form-item v-for="(item,index) in fields" :key="'form-field-'+index" :label="item.field.label" :prop="item.field.name"
+                      :required="item.field.required" :rules="item.rules" v-bind="item.formOpts">
           <el-select v-if="item.dict" v-model="form[item.field.name]" placeholder="请选择">
-            <el-option v-for="(_item,_index) in item.dict" :key="'option-item-'+_index" :label="_item.name" :value="_item.code" :disabled="_item.status == '1'"></el-option>
-          </el-select>        
-          <el-checkbox v-else-if="item.formOpts && item.formOpts.inputType=='checkbox'" v-model="form[item.field.name]" :disabled="readonly || item.field.readonly || (!isNew && item.field.editable === false)" >{{item.formOpts && item.formOpts.placeholder}}</el-checkbox>
-          <el-input v-else v-model="form[item.field.name]" :disabled="readonly || item.field.readonly || (!isNew && item.field.editable === false)" :placeholder="item.formOpts && item.formOpts.placeholder" :type="item.formOpts && item.formOpts.inputType"></el-input>
+            <el-option v-for="(_item,_index) in item.dict" :key="'option-item-'+_index" :label="_item.name" :value="_item.code"
+                       :disabled="_item.status == '1'"></el-option>
+          </el-select>
+          <el-checkbox v-else-if="item.formOpts && item.formOpts.inputType=='checkbox'" v-model="form[item.field.name]"
+                       :disabled="readonly || item.field.readonly || (!isNew && item.field.editable === false)">{{item.formOpts
+            && item.formOpts.placeholder}}</el-checkbox>
+          <el-input v-else v-model="form[item.field.name]" :disabled="readonly || item.field.readonly || (!isNew && item.field.editable === false)"
+                    :placeholder="item.formOpts && item.formOpts.placeholder" :type="item.formOpts && item.formOpts.inputType"></el-input>
         </el-form-item>
       </slot>
     </el-form>
@@ -30,7 +35,7 @@ export default {
     isNew: { type: Boolean, default: false } /* 是否新创建 */,
     options: {
       type: Object,
-      default: () => ({ size: 'small' })
+      default: () => ({ size: 'small' }),
     } /* form options */,
     width: String,
     title: String,
@@ -50,7 +55,7 @@ export default {
           console.warn('form validate error!!!');
         }
       });
-    }
+    },
   },
   computed: {
     fields() {
@@ -58,7 +63,7 @@ export default {
         .map(FieldMeta)
         .filter(p => p.slots.form)
         .sort((a, b) => b.order - a.order);
-    }
-  }
+    },
+  },
 };
 </script>

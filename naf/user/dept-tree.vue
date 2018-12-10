@@ -13,7 +13,7 @@ export default {
     return {
       navProps: {
         children: 'children',
-        label: 'name'
+        label: 'name',
       },
     };
   },
@@ -23,22 +23,21 @@ export default {
     },
     setCurrentKey(key) {
       this.$refs['tree'].setCurrentKey(key);
-    }
+    },
   },
   computed: {
     treeItems() {
-      if(this.navItems) return this.navItems;
+      if (this.navItems) return this.navItems;
       const items = this.dataItems || [];
-      const root = items.filter(a=> !items.some(b=>b.id === a.parentid));
-      const fetchChildren = (item)=> {
-        if(!item.path) item.path = [item.name];
-        const children = items.filter(p=> p.parentid === item.id)
-                              .map(p=> fetchChildren({...p, parent: item, path: item.path.concat(p.name)}));
+      const root = items.filter(a => !items.some(b => b.id === a.parentid));
+      const fetchChildren = item => {
+        if (!item.path) item.path = [item.name];
+        const children = items.filter(p => p.parentid === item.id).map(p => fetchChildren({ ...p, parent: item, path: item.path.concat(p.name) }));
         return { ...item, children };
       };
-      return root.map(p=> fetchChildren(p));
-    }
-  }
+      return root.map(p => fetchChildren(p));
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

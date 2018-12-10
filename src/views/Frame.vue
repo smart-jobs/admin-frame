@@ -108,6 +108,9 @@ export default {
       let items = this.items || [];
       if (this.navMode == 'nested') {
         items = items.filter(p => p.options.module == this.navModule);
+      } else {
+        console.log(this.navModules);
+        items = items.filter(p => this.navModules.some(m => m.options.module === p.options.module));
       }
       return items;
     },

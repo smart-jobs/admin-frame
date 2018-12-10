@@ -22,7 +22,7 @@ body {
     & > .el-scrollbar__view {
       padding: 10px;
       display: flex;
-      // flex: 1;
+      flex: 1;
       // flex-direction: column;
       // overflow: auto;
     }
