@@ -50,6 +50,9 @@ module.exports = {
         target: 'http://smart.chinahuian.cn',
         ws: true,
       },
+      '/files': {
+        target: 'http://smart.chinahuian.cn',
+      },
       '/admin/system': {
         target: 'http://localhost:3001',
       },
