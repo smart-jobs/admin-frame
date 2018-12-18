@@ -1,5 +1,5 @@
 <template>
-  <el-table border style="width: 100%;overflow: auto;" v-bind="options" :data="data">
+  <el-table border style="width: 100%;overflow: auto;" :size="options.size||'mini'" v-bind="options" :data="data">
     <slot name="pre">
     </slot>
     <slot>
@@ -7,10 +7,10 @@
                        :formatter="item.formatter" v-bind="item.options" show-overflow-tooltip />
     </slot>
     <slot name="oper">
-      <el-table-column label="操作" width="120" v-if="!readonly">
+      <el-table-column label="操作" :width="options.operWidth || '100'" v-if="!readonly">
         <template slot-scope="scope">
           <el-button v-for="(item,index) in operItems" :key="'field'+index" @click="handleOper(item, scope.row)" type="text"
-                     size="small">
+                     :size="options.size || 'mini'">
             <el-tooltip v-if="item.icon" :content="item.label"><i :class="item.icon"></i></el-tooltip>
             <span v-else>{{item.label}}</span>
           </el-button>
@@ -85,5 +85,8 @@ export default {
 .el-table {
   height: 100%;
   overflow: auto;
+}
+.el-button + .el-button {
+  margin-left: 5px;
 }
 </style>
