@@ -43,11 +43,17 @@ module.exports = {
       app.use('/platform/api', menu);
     },
     proxy: {
+      // '/platform/api/docflow': {
+      //   target: 'http://localhost:8301',
+      //   pathRewrite: { '^/platform/api/docflow': '' },
+      // },
       '/platform/api': {
-        target: 'http://smart.chinahuian.cn',
+        // target: 'http://smart.chinahuian.cn',
+        target: 'http://smart.localhost:8000',
       },
       '/ws': {
-        target: 'http://smart.chinahuian.cn',
+        // target: 'http://smart.chinahuian.cn',
+        target: 'http://smart.localhost:8000',
         ws: true,
       },
       '/files': {

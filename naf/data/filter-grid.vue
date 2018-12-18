@@ -17,12 +17,25 @@
     </el-header>
     <el-main class="table-area">
       <lite-grid :data="data" :meta="meta" :options="options" :readonly="readonly" :operation="operation" @oper="handleOper">
+        <template slot="pre">
+          <slot name="list-pre">
+          </slot>
+        </template>
         <slot>
         </slot>
+        <template slot="oper">
+          <slot name="list-oper">
+          </slot>
+        </template>
+        <template slot="ext">
+          <slot name="list-ext">
+          </slot>
+        </template>
       </lite-grid>
     </el-main>
     <el-footer height="36px" v-if="paging">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page" :page-sizes="[10, 20, 50, 100, 200]" :page-size="size" :total="total" layout="total, sizes, prev, pager, next, jumper"></el-pagination>
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page"
+                     :page-sizes="[10, 20, 50, 100, 200]" :page-size="size" :total="total" layout="total, sizes, prev, pager, next, jumper"></el-pagination>
     </el-footer>
   </el-container>
 </template>
@@ -33,7 +46,7 @@ import LiteGrid from './lite-grid';
 export default {
   name: 'filter-grid',
   components: {
-    LiteGrid
+    LiteGrid,
   },
   props: {
     meta: { type: Array, required: true },
@@ -43,12 +56,12 @@ export default {
     paging: { type: Boolean, default: false } /* 是否显示分页 */,
     options: {
       type: Object,
-      default: () => ({ size: 'mini' })
+      default: () => ({ size: 'mini' }),
     } /* 表格扩展属性 */,
     operation: Array,
     data: Array,
-    total: { type: Number, default: 0 }, /* 总数据条数 */
-    pageSize: { type: Number, default: 10 }
+    total: { type: Number, default: 0 } /* 总数据条数 */,
+    pageSize: { type: Number, default: 10 },
   },
   data() {
     return {
@@ -56,19 +69,19 @@ export default {
       size: this.pageSize,
       filterData: {
         name: '',
-        value: ''
-      }
+        value: '',
+      },
     };
   },
   methods: {
     async query() {
       let filter = { [this.filterData.name]: this.filterData.value };
-      if(this.filterData.name == undefined || this.filterData.value == undefined || this.filterData.value == '') {
+      if (this.filterData.name == undefined || this.filterData.value == undefined || this.filterData.value == '') {
         filter = undefined;
       }
       this.$emit('query', {
         filter,
-        paging: { page: this.page, size: this.size }
+        paging: { page: this.page, size: this.size },
       });
     },
     handleSizeChange(val) {
@@ -89,7 +102,7 @@ export default {
     },
     resetPage() {
       this.page = 1;
-    }
+    },
   },
   computed: {
     filterFields() {
@@ -98,8 +111,8 @@ export default {
         .filter(p => p.slots.filter)
         .sort((a, b) => b.order - a.order)
         .map(p => p.field);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>

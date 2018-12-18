@@ -84,6 +84,12 @@ const formatters = {
       return cellValue;
     };
   },
+  bool: param => (row, column, cellValue, index) => {
+    if (cellValue === undefined) {
+      return '';
+    }
+    return cellValue ? '是' : '否';
+  },
 };
 
 export const Formatter = (meta, _this) => {
