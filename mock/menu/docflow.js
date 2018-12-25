@@ -40,7 +40,7 @@ module.exports = [
       },
       {
         title: '公文回执',
-        path: '/docflow/feedback',
+        path: '/docflow/outbox/feedback',
         icon: 'column',
       },
     ],

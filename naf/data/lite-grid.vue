@@ -9,7 +9,7 @@
     <slot name="oper">
       <el-table-column label="操作" :width="options.operWidth || '100'" v-if="!readonly">
         <template slot-scope="scope">
-          <el-button v-for="(item,index) in operItems" :key="'field'+index" @click="handleOper(item, scope.row)" type="text"
+          <el-button v-for="(item,index) in operItems" :key="'field'+index" @click="handleOper(item, scope.row, scope.$index)" type="text"
                      :size="options.size || 'mini'">
             <el-tooltip v-if="item.icon" :content="item.label"><i :class="item.icon"></i></el-tooltip>
             <span v-else>{{item.label}}</span>
@@ -40,7 +40,7 @@ export default {
     data: Array,
   },
   methods: {
-    async handleOper({ event, label, confirm }, data) {
+    async handleOper({ event, label, confirm }, data, index) {
       try {
         if (confirm) {
           await this.$confirm(`是否${label}此数据?`, '请确认', {
@@ -49,8 +49,8 @@ export default {
             type: 'warning',
           });
         }
-        this.$emit(event, data);
-        this.$emit('oper', { event, data });
+        this.$emit(event, data, index);
+        this.$emit('oper', { event, data, index });
       } catch (err) {
         if (err == 'cancel') {
           this.$message({

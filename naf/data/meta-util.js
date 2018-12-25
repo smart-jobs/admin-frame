@@ -69,7 +69,7 @@ export const Operation = meta => {
 };
 
 // 预置formatter函数
-const formatters = {
+export const formatters = {
   date: param => (row, column, cellValue, index) => {
     if (cellValue) {
       return moment(cellValue).format(param || 'YYYY-MM-DD');
