@@ -7,7 +7,7 @@ const baseUrl = '/admin';
 
 module.exports = {
   // baseUrl: './',
-  baseUrl: baseUrl, // : process.env.VUE_APP_ROOT_URL,
+  publicPath: baseUrl, // : process.env.VUE_APP_ROOT_URL,
 
   configureWebpack: {
     externals: {
