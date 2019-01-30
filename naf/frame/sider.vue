@@ -1,8 +1,15 @@
 <template>
-  <el-menu ref="menu" default-active="0" class="nav-menu" v-bind="themeStyles"
-     :collapse="isCollapse" :router="false">
-    <naf-menu-item v-for="(item,idx) in menuItems" :key="idx" :index="idx.toString()" :title="item.title"
-      :options="item.options" :children="item.children" :target="item.target">
+  <el-menu ref="menu" default-active="0" class="nav-menu" v-bind="themeStyles" :collapse="isCollapse" :router="false">
+    <naf-menu-item
+      v-for="(item, idx) in menuItems"
+      :key="idx"
+      :index="idx.toString()"
+      :title="item.title"
+      :options="item.options"
+      :children="item.children"
+      :target="item.target"
+      :prefix="routerPrefix"
+    >
     </naf-menu-item>
   </el-menu>
 </template>
@@ -17,6 +24,7 @@ export default {
     theme: String,
     isCollapse: Boolean,
     menuItems: Array,
+    routerPrefix: { type: String, default: '' },
   },
   data() {
     return {
@@ -53,5 +61,4 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

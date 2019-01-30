@@ -20,7 +20,7 @@ body {
     overflow-x: hidden;
     display: flex;
     & > .el-scrollbar__view {
-      padding: 10px;
+      padding: 0px;
       display: flex;
       flex: 1;
       // flex-direction: column;

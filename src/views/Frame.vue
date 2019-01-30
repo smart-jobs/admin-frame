@@ -1,14 +1,27 @@
 <template>
   <el-container class="layout" direction="vertical">
-    <el-header class="header" :height="layout.headerHeight" :style="{lineHeight: layout.headerHeight}">
-      <naf-header :short-name="name" :logo-width="asideWidth" :menu-collapse="menuCollapse" :nav-mode="navMode"
-                  @toggle-menu="toggleMenu" @switch-mode="switchMode" :menu-items="navModules | visibility(platform)" />
+    <el-header class="header" :height="layout.headerHeight" :style="{ lineHeight: layout.headerHeight }">
+      <naf-header
+        :short-name="name"
+        :logo-width="asideWidth"
+        :menu-collapse="menuCollapse"
+        :nav-mode="navMode"
+        @toggle-menu="toggleMenu"
+        @switch-mode="switchMode"
+        :menu-items="navModules | visibility(platform)"
+      />
     </el-header>
     <el-main style="padding: 0;display: flex;">
       <el-container class="main">
         <el-aside :width="asideWidth" class="sider" v-show="asideShow">
           <el-scrollbar>
-            <naf-sider :menu-items="menuItems | visibility(platform)" :style="{width: asideWidth}" theme="light" :is-collapse="menuCollapse" />
+            <naf-sider
+              :menu-items="menuItems | visibility(platform)"
+              :style="{ width: asideWidth }"
+              theme="light"
+              :is-collapse="menuCollapse"
+              router-prefix="/frame"
+            />
           </el-scrollbar>
         </el-aside>
         <el-main class="content">
@@ -17,8 +30,18 @@
           </div>
           <div class="page" ref="pageContainer">
             <router-view v-if="!$route.params.module" />
-            <iframe id="frame" ref="iframe" :src="routerPath" scrolling="no" frameborder="0" @load="pageLoaded"
-                    @hashchange="pageLoaded" @waiting="loading=true" v-else v-show="!loading">
+            <iframe
+              id="frame"
+              ref="iframe"
+              :src="routerPath"
+              scrolling="no"
+              frameborder="0"
+              @load="pageLoaded"
+              @hashchange="pageLoaded"
+              @waiting="loading = true"
+              v-else
+              v-show="!loading"
+            >
             </iframe>
             <div class="weui-loadmore" v-show="loading">
               <i class="weui-loading"></i>
