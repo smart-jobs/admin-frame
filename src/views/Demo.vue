@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h3>routerPath: {{routerPath}}</h3>
-    <h3>params: {{$route.params}}</h3>
+    <h3>routerPath: {{ routerPath }}</h3>
+    <h3>params: {{ $route.params }}</h3>
   </div>
 </template>
 
