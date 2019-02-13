@@ -3,19 +3,19 @@
     <div class="top">
       <div class="header">
         <img alt="" class="logo" src="@/assets/logo.svg" />
-        <span class="title">{{productName}}</span>
+        <span class="title">{{ productName }}</span>
       </div>
-      <p class="desc">{{description}}</p>
+      <p class="desc">{{ description }}</p>
     </div>
     <div class="main">
       <el-form :model="loginForm" :rules="rules" ref="loginForm">
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" placeholder="用户名" prefix-icon="naf-icons naf-icon-user">
-            <template slot="append" v-if="unit != 'master'">@
+            <template slot="append" v-if="unit != 'master'"
+              >@
               <!-- <router-view /> -->
               <el-tooltip class="item" effect="dark" :content="unit" :disabled="unit == undefined">
-                <code-select category="unit" v-model="unit" placeholder="所在单位" :disabled="$route.params.unit != undefined">
-                </code-select>
+                <code-select category="unit" v-model="unit" placeholder="所在单位" :disabled="$route.params.unit != undefined"> </code-select>
               </el-tooltip>
             </template>
           </el-input>
@@ -24,11 +24,11 @@
           <el-input type="password" placeholder="密码" v-model="loginForm.password" prefix-icon="naf-icons naf-icon-password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('loginForm')" :style="{width: '100%'}">登录</el-button>
+          <el-button type="primary" @click="submitForm('loginForm')" :style="{ width: '100%' }">登录</el-button>
         </el-form-item>
       </el-form>
       <div class="qrcode">
-        <img :src="dataUrl">
+        <img :src="dataUrl" />
         <div>微信扫码登录</div>
       </div>
     </div>
