@@ -11,8 +11,8 @@
       <el-form :model="loginForm" :rules="rules" ref="loginForm">
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" placeholder="用户名" prefix-icon="naf-icons naf-icon-user">
-            <template slot="append" v-if="unit != 'master'"
-              >@
+            <template slot="append" v-if="unit != 'master'">
+              @
               <!-- <router-view /> -->
               <el-tooltip class="item" effect="dark" :content="unit" :disabled="unit == undefined">
                 <code-select category="unit" v-model="unit" placeholder="所在单位" :disabled="$route.params.unit != undefined"> </code-select>
