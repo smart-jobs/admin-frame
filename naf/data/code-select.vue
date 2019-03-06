@@ -1,12 +1,11 @@
 <template>
   <el-select v-model="selected" :placeholder="placeholder || '请选择'" @change="handleChange" :disabled="disabled">
-    <el-option v-for="(item,_index) in datas" :key="'option-item-'+_index" :label="item.name" :value="item.code"
-               :disabled="item.status == '1'"></el-option>
+    <el-option v-for="(item, _index) in datas" :key="'option-item-' + _index" :label="item.name" :value="item.code" :disabled="item.status == '1'"></el-option>
   </el-select>
 </template>
 <script>
 import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('naf/dict');
+const { mapActions } = createNamespacedHelpers('naf/dict');
 
 export default {
   name: 'code-select',
