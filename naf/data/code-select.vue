@@ -14,6 +14,7 @@ export default {
     category: { type: String, required: true },
     placeholder: String,
     disabled: Boolean,
+    mode: { type: String, default: 'code' }, // 选值模式：code、name、pair
   },
   data() {
     return {
@@ -33,8 +34,21 @@ export default {
   methods: {
     ...mapActions(['load']),
     handleChange() {
+      if (this.selected) {
+        const items = this.datas || [];
+        const item = items.find(p => p.code === this.selected);
+        if (item && this.mode === 'name') {
+          this.$emit('input', item.name);
+          return;
+        }
+        if (this.mode === 'pair') {
+          this.$emit('input', item);
+          return;
+        }
+      }
+
       this.$emit('input', this.selected);
-      this.$emit('change', this.selected);
+      // this.$emit('change', this.selected);
     },
   },
 };
