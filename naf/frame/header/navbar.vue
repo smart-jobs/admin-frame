@@ -1,7 +1,15 @@
 <template>
   <div class="banner">
     <el-menu class="nav-menu" mode="horizontal" background-color="#20a0ff" text-color="#fff" active-text-color="#ffd04b">
-      <naf-menu-item v-for="(item,idx) in menuItems" :key="idx" :index="idx.toString()" :title="item.title" :options="item.options" :children="item.children" :target="item.target">
+      <naf-menu-item
+        v-for="(item, idx) in menuItems"
+        :key="idx"
+        :index="idx.toString()"
+        :title="item.title"
+        :options="item.options"
+        :children="item.children"
+        :target="item.target"
+      >
       </naf-menu-item>
     </el-menu>
     <naf-user />

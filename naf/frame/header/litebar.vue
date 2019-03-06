@@ -1,6 +1,6 @@
 <template>
   <div class="banner">
-    <i class="naf-icons" :class="{'naf-icon-unfold': menuCollapse, 'naf-icon-fold': !menuCollapse,}" @click="toggleMenu"></i>
+    <i class="naf-icons" :class="{ 'naf-icon-unfold': menuCollapse, 'naf-icon-fold': !menuCollapse }" @click="toggleMenu"></i>
     <naf-user />
   </div>
 </template>
