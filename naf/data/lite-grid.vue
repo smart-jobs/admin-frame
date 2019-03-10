@@ -1,24 +1,34 @@
 <template>
-  <el-table border style="width: 100%;overflow: auto;" :size="options.size||'mini'" v-bind="options" :data="data">
-    <slot name="pre">
-    </slot>
+  <el-table border style="width: 100%;overflow: auto;" :size="options.size || 'mini'" v-bind="options" :data="data">
+    <slot name="pre"> </slot>
     <slot>
-      <el-table-column v-for="(item,index) in listFields" :key="'field'+index" :label="item.label" :prop="item.name"
-                       :formatter="item.formatter" v-bind="item.options" show-overflow-tooltip />
+      <el-table-column
+        v-for="(item, index) in listFields"
+        :key="'field' + index"
+        :label="item.label"
+        :prop="item.name"
+        :formatter="item.formatter"
+        v-bind="item.options"
+        show-overflow-tooltip
+      />
     </slot>
     <slot name="oper">
       <el-table-column label="操作" :width="options.operWidth || '100'" v-if="!readonly">
         <template slot-scope="scope">
-          <el-button v-for="(item,index) in operItems" :key="'field'+index" @click="handleOper(item, scope.row, scope.$index)" type="text"
-                     :size="options.size || 'mini'">
+          <el-button
+            v-for="(item, index) in operItems"
+            :key="'field' + index"
+            @click="handleOper(item, scope.row, scope.$index)"
+            type="text"
+            :size="options.size || 'mini'"
+          >
             <el-tooltip v-if="item.icon" :content="item.label"><i :class="item.icon"></i></el-tooltip>
-            <span v-else>{{item.label}}</span>
+            <span v-else>{{ item.label }}</span>
           </el-button>
         </template>
       </el-table-column>
     </slot>
-    <slot name="ext">
-    </slot>
+    <slot name="ext"> </slot>
   </el-table>
 </template>
 <script>
