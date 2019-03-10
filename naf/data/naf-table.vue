@@ -1,27 +1,33 @@
 <template>
-	<el-container class="container">
+  <el-container class="container">
     <el-header height="36px" style="line-height:36px;">
-      <div class="filter-box" v-if="filters && filters.length>0">
-        <el-input placeholder="请输入内容" class="input-with-select" :clearable="true" size="mini" 
-          v-model="fieldValue">
+      <div class="filter-box" v-if="filters && filters.length > 0">
+        <el-input placeholder="请输入内容" class="input-with-select" :clearable="true" size="mini" v-model="fieldValue">
           <el-select slot="prepend" placeholder="请选择" width="110" v-model="fieldName">
-            <el-option v-for="(item,index) in filters" :label="item" :value="item" :key="'filter'+index"></el-option>
+            <el-option v-for="(item, index) in filters" :label="item" :value="item" :key="'filter' + index"></el-option>
           </el-select>
           <el-button slot="append" icon="el-icon-search" @click="query"></el-button>
         </el-input>
-      </div>    
+      </div>
       <el-button icon="el-icon-plus" type="primary" size="mini" v-if="showAction">添加</el-button>
-      <slot name="actionBar"></slot>        
+      <slot name="actionBar"></slot>
     </el-header>
     <el-main>
-      <el-table border style="width: 100%;overflow: auto;" size="mini">  
+      <el-table border style="width: 100%;overflow: auto;" size="mini">
         <slot></slot>
       </el-table>
     </el-main>
-    <el-footer height="36px"> 
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
-            :current-page="page" :page-sizes="[10, 20, 50, 100, 200]" :page-size="size" :total="total"
-            layout="total, sizes, prev, pager, next, jumper"></el-pagination>
+    <el-footer height="36px">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="page"
+        :page-sizes="[10, 20, 50, 100, 200]"
+        :page-size="size"
+        :total="total"
+        layout="total, sizes, prev, pager, next, jumper"
+      ></el-pagination>
     </el-footer>
   </el-container>
 </template>
@@ -46,7 +52,7 @@ export default {
       size: 20,
       fieldName: '',
       fieldValue: '',
-      showAction: !(this.readonly),
+      showAction: !this.readonly,
     };
   },
   mounted() {
@@ -89,7 +95,7 @@ export default {
   height: 100%;
   overflow: auto;
 }
-.filter-box{
+.filter-box {
   width: 280px;
   display: inline-block;
   .el-select {
