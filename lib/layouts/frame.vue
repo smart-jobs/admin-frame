@@ -11,9 +11,14 @@
         <el-aside :width="asideWidth" class="sider" v-show="asideShow">
           <naf-sider :menu-items="menuItems" :style="{ width: asideWidth }" theme="light" :is-collapse="menuCollapse" />
         </el-aside>
-        <el-main class="page">
-          <el-alert :title="errMsg" type="info" :description="errDesc" show-icon v-if="showError"> </el-alert>
-          <router-view v-else />
+        <el-main class="content">
+          <div class="bread" :height="layout.breadHeight" v-show="asideShow">
+            <naf-bread></naf-bread>
+          </div>
+          <div class="page" ref="pageContainer">
+            <el-alert :title="errMsg" type="info" :description="errDesc" show-icon v-if="showError"> </el-alert>
+            <router-view v-else />
+          </div>
         </el-main>
       </el-container>
     </el-main>
@@ -23,9 +28,9 @@
 <script>
 import config from '@frame/config';
 import NafSider from '@naf/frame/sider';
-import NafBread from '@naf/frame/bread';
 import NafLogo from './logo';
 import NafLiteBar from './litebar';
+import NafBread from './bread';
 
 const defaultConfig = {
   breadHeight: '24px',
@@ -43,6 +48,7 @@ export default {
     NafSider,
     NafLogo,
     NafLiteBar,
+    NafBread,
   },
   props: {
     menuItems: { type: Array, required: true },
@@ -112,11 +118,19 @@ export default {
   // FOR EDGE
   overflow: hidden;
 }
-.page {
-  overflow: auto;
-  display: block;
-  height: 100%;
-  width: 100%;
-  padding: 10px;
+.content {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  .bread {
+    padding: 10px 20px;
+  }
+  .page {
+    flex: 1;
+    overflow: auto;
+    display: block;
+    padding: 10px;
+  }
 }
 </style>

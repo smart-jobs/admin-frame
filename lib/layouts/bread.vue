@@ -26,7 +26,7 @@ export default {
       return (menu && menu.options && menu.options.meta && menu.options.meta.catalog) || [];
     },
     menuItems() {
-      return this.$store.getters.menuItems;
+      return this.$store.state.menu.items;
     },
   },
 };
