@@ -1,6 +1,17 @@
 <template>
   <el-select v-model="selected" :placeholder="placeholder || '请选择'" @change="handleChange" :disabled="disabled">
-    <el-option v-for="(item, _index) in datas" :key="'option-item-' + _index" :label="item.name" :value="item.code" :disabled="item.status == '1'"></el-option>
+    <template v-for="(item, _index) in datas">
+      <el-option-group :key="'option-group-' + _index" :label="item.name" v-if="item.children && item.children.length > 0">
+        <el-option
+          v-for="(child, _index2) in item.children"
+          :key="'option-item-' + _index + '-' + _index2"
+          :label="child.name"
+          :value="child.code"
+          :disabled="child.status == '1'"
+        ></el-option>
+      </el-option-group>
+      <el-option :key="'option-item-' + _index" :label="item.name" :value="item.code" :disabled="item.status == '1'" v-else></el-option>
+    </template>
   </el-select>
 </template>
 <script>
