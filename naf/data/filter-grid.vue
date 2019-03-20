@@ -5,7 +5,7 @@
         <div class="filter-box">
           <el-input placeholder="请输入内容" class="input-with-select" :clearable="true" size="mini" v-model="filterData.value">
             <el-select slot="prepend" placeholder="请选择" width="110" v-model="filterData.name">
-              <el-option v-for="(item,index) in filterFields" :label="item.label" :value="item.name" :key="'filter'+index"></el-option>
+              <el-option v-for="(item, index) in filterFields" :label="item.label" :value="item.name" :key="'filter' + index"></el-option>
             </el-select>
             <el-button slot="append" icon="el-icon-search" @click="query"></el-button>
           </el-input>
@@ -18,24 +18,28 @@
     <el-main class="table-area">
       <lite-grid :data="data" :meta="meta" :options="options" :readonly="readonly" :operation="operation" @oper="handleOper">
         <template slot="pre">
-          <slot name="list-pre">
-          </slot>
+          <slot name="list-pre"> </slot>
         </template>
-        <slot>
-        </slot>
+        <slot> </slot>
         <template slot="oper">
-          <slot name="list-oper">
-          </slot>
+          <slot name="list-oper"> </slot>
         </template>
         <template slot="ext">
-          <slot name="list-ext">
-          </slot>
+          <slot name="list-ext"> </slot>
         </template>
       </lite-grid>
     </el-main>
     <el-footer height="36px" v-if="paging">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page"
-                     :page-sizes="[10, 20, 50, 100, 200]" :page-size="size" :total="total" layout="total, sizes, prev, pager, next, jumper"></el-pagination>
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="page"
+        :page-sizes="[10, 20, 50, 100, 200]"
+        :page-size="size"
+        :total="total"
+        layout="total, sizes, prev, pager, next, jumper"
+      ></el-pagination>
     </el-footer>
   </el-container>
 </template>
