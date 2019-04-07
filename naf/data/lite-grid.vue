@@ -12,6 +12,7 @@
         show-overflow-tooltip
       />
     </slot>
+    <slot name="ext"> </slot>
     <slot name="oper">
       <el-table-column label="操作" :width="options.operWidth || '100'" v-if="!readonly">
         <template slot-scope="scope">
@@ -28,7 +29,7 @@
         </template>
       </el-table-column>
     </slot>
-    <slot name="ext"> </slot>
+    <slot name="post"> </slot>
   </el-table>
 </template>
 <script>

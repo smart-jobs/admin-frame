@@ -4,7 +4,7 @@
       <div class="filter-box">
         <el-input placeholder="请输入内容" class="input-with-select" :clearable="true" size="mini" v-model="fieldValue">
           <el-select slot="prepend" placeholder="请选择" width="110" v-model="fieldName">
-            <el-option v-for="(item,index) in filters" :label="item" :value="item" :key="'filter'+index"></el-option>
+            <el-option v-for="(item, index) in filters" :label="item" :value="item" :key="'filter' + index"></el-option>
           </el-select>
           <el-button slot="append" icon="el-icon-search" @click="query"></el-button>
         </el-input>
@@ -13,13 +13,21 @@
     </el-header>
     <el-main>
       <el-table border style="width: 100%;overflow: auto;" size="mini">
-        <el-table-column v-for="(item,index) in fields" :label="item" :key="'field'+index"></el-table-column>
+        <el-table-column v-for="(item, index) in fields" :label="item" :key="'field' + index"></el-table-column>
         <el-table-column label="操作" v-if="showAction"></el-table-column>
       </el-table>
     </el-main>
     <el-footer height="36px">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page"
-                     :page-sizes="[10, 20, 50, 100, 200]" :page-size="size" :total="total" layout="total, sizes, prev, pager, next, jumper"></el-pagination>
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="page"
+        :page-sizes="[10, 20, 50, 100, 200]"
+        :page-size="size"
+        :total="total"
+        layout="total, sizes, prev, pager, next, jumper"
+      ></el-pagination>
     </el-footer>
   </el-container>
 </template>

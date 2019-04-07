@@ -18,14 +18,17 @@
     <el-main class="table-area">
       <lite-grid :data="data" :meta="meta" :options="options" :readonly="readonly" :operation="operation" @oper="handleOper">
         <template slot="pre">
-          <slot name="list-pre"> </slot>
+          <slot name="pre"> </slot>
         </template>
         <slot> </slot>
         <template slot="oper">
-          <slot name="list-oper"> </slot>
+          <slot name="oper"> </slot>
         </template>
         <template slot="ext">
-          <slot name="list-ext"> </slot>
+          <slot name="ext"> </slot>
+        </template>
+        <template slot="post">
+          <slot name="post"> </slot>
         </template>
       </lite-grid>
     </el-main>
