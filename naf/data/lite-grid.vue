@@ -54,7 +54,7 @@ export default {
     async handleOper({ event, label, confirm }, data, index) {
       try {
         if (confirm) {
-          const msg = _.isString(confirm) ? confirm : '`是否${label}此数据?`';
+          const msg = _.isString(confirm) ? confirm : `是否${label}此数据?`;
           await this.$confirm(msg, '请确认', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
