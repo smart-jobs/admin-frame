@@ -134,6 +134,7 @@ export default {
 .filter-box {
   width: 280px;
   display: inline-block;
+  margin-right: 20px;
   .el-select {
     width: 100px;
   }
